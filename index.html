@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>個人作品集 | Portfolio</title>
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- AOS Animation CDN -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- 導覽列 -->
+    <nav class="navbar">
+        <div class="logo">Portfolio</div>
+        <ul class="nav-links">
+            <li><a href="#home">首頁</a></li>
+            <li><a href="#about">關於我</a></li>
+            <li><a href="#works">作品集</a></li>
+            <li><a href="#contact">聯絡我</a></li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- 首頁區塊 -->
+    <section id="home" class="hero">
+        <div class="hero-content" data-aos="fade-up">
+            <h1>歡迎來到我的作品集</h1>
+            <p>讓創意為生活增添色彩</p>
+            <a href="#works" class="cta-button">查看作品</a>
+        </div>
+    </section>
+
+    <!-- 關於我區塊 -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">關於我</h2>
+            <div class="about-content">
+                <div class="about-text" data-aos="fade-right">
+                    <p>您好！我是一位充滿熱情的創作者，專注於...</p>
+                    <p>我擅長...</p>
+                    <div class="skills">
+                        <span class="skill-tag">網頁設計</span>
+                        <span class="skill-tag">UI/UX</span>
+                        <span class="skill-tag">攝影</span>
+                    </div>
+                </div>
+                <div class="about-image" data-aos="fade-left">
+                    <img src="images/profile-placeholder.jpg" alt="個人照片">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 作品集區塊 -->
+    <section id="works" class="works">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">作品集</h2>
+            <div class="works-grid">
+                <div class="work-item" data-aos="zoom-in">
+                    <img src="images/work-1.jpg" alt="作品 1">
+                    <div class="work-overlay">
+                        <h3>作品標題 1</h3>
+                        <p>作品描述...</p>
+                    </div>
+                </div>
+                <div class="work-item" data-aos="zoom-in">
+                    <img src="images/work-2.jpg" alt="作品 2">
+                    <div class="work-overlay">
+                        <h3>作品標題 2</h3>
+                        <p>作品描述...</p>
+                    </div>
+                </div>
+                <div class="work-item" data-aos="zoom-in">
+                    <img src="images/work-3.jpg" alt="作品 3">
+                    <div class="work-overlay">
+                        <h3>作品標題 3</h3>
+                        <p>作品描述...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 聯絡表單區塊 -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">聯絡我</h2>
+            <div class="contact-content">
+                <form class="contact-form" data-aos="fade-up">
+                    <div class="form-group">
+                        <input type="text" id="name" required>
+                        <label for="name">姓名</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" required>
+                        <label for="email">電子郵件</label>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" required></textarea>
+                        <label for="message">訊息內容</label>
+                    </div>
+                    <button type="submit" class="submit-btn">發送訊息</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- 頁尾 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="social-links">
+                <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p>&copy; 2025 個人作品集. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript CDN -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="js/main.js"></script>
+</body>
+</html>
