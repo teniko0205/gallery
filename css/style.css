@@ -1,9 +1,12 @@
 /* 全域設定 */
 :root {
-    --primary-color: #2c3e50;
-    --secondary-color: #3498db;
-    --text-color: #333;
-    --light-color: #f4f4f4;
+    --primary-color: #282c34;
+    --secondary-color: #61afef;
+    --text-color: #abb2bf;
+    --light-color: #21252b;
+    --accent-color: #98c379;
+    --border-color: #3e4451;
+    --hover-color: #3e4451;
     --transition: all 0.3s ease;
 }
 
@@ -21,6 +24,7 @@ body {
     font-family: 'Arial', sans-serif;
     line-height: 1.6;
     color: var(--text-color);
+    background-color: var(--primary-color);
 }
 
 .container {
@@ -35,19 +39,19 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--light-color);
     padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     z-index: 1000;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
 .logo {
     font-size: 1.5rem;
     font-weight: bold;
-    color: var(--primary-color);
+    color: var(--secondary-color);
 }
 
 .nav-links {
@@ -130,7 +134,7 @@ body {
     text-align: center;
     font-size: 2.5rem;
     margin-bottom: 3rem;
-    color: var(--primary-color);
+    color: var(--secondary-color);
 }
 
 .about-content {
@@ -168,6 +172,7 @@ body {
 /* 作品集區塊 */
 .works {
     padding: 6rem 0;
+    background: var(--primary-color);
 }
 
 .works-grid {
@@ -180,7 +185,8 @@ body {
     position: relative;
     overflow: hidden;
     border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    background: var(--light-color);
 }
 
 .work-item img {
@@ -229,9 +235,11 @@ body {
 .form-group textarea {
     width: 100%;
     padding: 1rem;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-color);
     border-radius: 5px;
     font-size: 1rem;
+    background: var(--primary-color);
+    color: var(--text-color);
     transition: var(--transition);
 }
 
@@ -241,12 +249,7 @@ body {
 }
 
 .form-group label {
-    position: absolute;
-    left: 1rem;
-    top: 1rem;
-    color: #666;
-    transition: var(--transition);
-    pointer-events: none;
+    color: var(--text-color);
 }
 
 .form-group input:focus,
@@ -259,11 +262,7 @@ body {
 .form-group textarea:focus + label,
 .form-group input:valid + label,
 .form-group textarea:valid + label {
-    top: -0.5rem;
-    left: 0.5rem;
-    background: white;
-    padding: 0 0.5rem;
-    font-size: 0.8rem;
+    background: var(--light-color);
     color: var(--secondary-color);
 }
 
@@ -281,15 +280,16 @@ body {
 }
 
 .submit-btn:hover {
-    background: #2980b9;
+    background: var(--accent-color);
 }
 
 /* 頁尾 */
 .footer {
-    background: var(--primary-color);
-    color: white;
+    background: var(--light-color);
+    color: var(--text-color);
     padding: 2rem 0;
     text-align: center;
+    border-top: 1px solid var(--border-color);
 }
 
 .social-links {
@@ -300,7 +300,7 @@ body {
 }
 
 .social-links a {
-    color: white;
+    color: var(--text-color);
     font-size: 1.5rem;
     transition: var(--transition);
 }
