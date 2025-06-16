@@ -315,3 +315,68 @@ resetThemeButton.addEventListener('click', resetTheme);
 document.addEventListener('DOMContentLoaded', () => {
     loadCustomTheme();
 });
+
+// 語言切換功能
+const langButtons = document.querySelectorAll('.lang-btn');
+const currentLang = localStorage.getItem('language') || 'zh-tw';
+let translations = currentLang === 'zh-tw' ? zhTW : enUS;
+
+// 初始化語言
+function initLanguage() {
+    document.documentElement.lang = currentLang;
+    updateLanguageButtons();
+    updateContent();
+}
+
+// 更新語言按鈕狀態
+function updateLanguageButtons() {
+    langButtons.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === currentLang);
+    });
+}
+
+// 更新頁面內容
+function updateContent() {
+    // 導覽列
+    document.querySelector('.nav-links li:nth-child(1) a').textContent = translations.nav.home;
+    document.querySelector('.nav-links li:nth-child(2) a').textContent = translations.nav.about;
+    document.querySelector('.nav-links li:nth-child(3) a').textContent = translations.nav.works;
+    document.querySelector('.nav-links li:nth-child(4) a').textContent = translations.nav.contact;
+
+    // Hero 區塊
+    document.querySelector('.hero h1').textContent = translations.hero.title;
+    document.querySelector('.hero p').textContent = translations.hero.subtitle;
+    document.querySelector('.hero .cta-btn').textContent = translations.hero.cta;
+
+    // About 區塊
+    document.querySelector('#about h2').textContent = translations.about.title;
+    document.querySelector('#about p').textContent = translations.about.description;
+
+    // Works 區塊
+    document.querySelector('#works h2').textContent = translations.works.title;
+    document.querySelector('#works p').textContent = translations.works.description;
+
+    // Contact 區塊
+    document.querySelector('#contact h2').textContent = translations.contact.title;
+    document.querySelector('#contact [name="name"]').placeholder = translations.contact.name;
+    document.querySelector('#contact [name="email"]').placeholder = translations.contact.email;
+    document.querySelector('#contact [name="message"]').placeholder = translations.contact.message;
+    document.querySelector('#contact button[type="submit"]').textContent = translations.contact.submit;
+}
+
+// 監聽語言切換按鈕
+langButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const newLang = btn.dataset.lang;
+        if (newLang !== currentLang) {
+            localStorage.setItem('language', newLang);
+            translations = newLang === 'zh-tw' ? zhTW : enUS;
+            document.documentElement.lang = newLang;
+            updateLanguageButtons();
+            updateContent();
+        }
+    });
+});
+
+// 頁面載入時初始化語言
+document.addEventListener('DOMContentLoaded', initLanguage);
