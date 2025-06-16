@@ -241,3 +241,77 @@ themeToggle.addEventListener('click', () => {
         navbar.style.background = newTheme === 'light' ? 'rgba(255, 255, 255, 0.95)' : 'rgba(40, 44, 52, 0.95)';
     }
 });
+
+// 主題設定功能
+const themeSettingsToggle = document.querySelector('.theme-settings-toggle');
+const themeSettingsPanel = document.querySelector('.theme-settings-panel');
+const colorInputs = document.querySelectorAll('.color-picker input[type="color"]');
+const resetThemeButton = document.querySelector('.reset-theme');
+
+// 預設主題顏色
+const defaultTheme = {
+    '--primary-color': '#282c34',
+    '--secondary-color': '#61afef',
+    '--text-color': '#abb2bf',
+    '--accent-color': '#98c379'
+};
+
+// 從 localStorage 讀取保存的主題
+function loadCustomTheme() {
+    const savedTheme = localStorage.getItem('customTheme');
+    if (savedTheme) {
+        const theme = JSON.parse(savedTheme);
+        Object.entries(theme).forEach(([variable, value]) => {
+            document.documentElement.style.setProperty(variable, value);
+            const input = document.querySelector(`input[data-var="${variable}"]`);
+            if (input) input.value = value;
+        });
+    }
+}
+
+// 保存主題到 localStorage
+function saveTheme(theme) {
+    localStorage.setItem('customTheme', JSON.stringify(theme));
+}
+
+// 更新主題顏色
+function updateThemeColor(variable, value) {
+    document.documentElement.style.setProperty(variable, value);
+    const currentTheme = JSON.parse(localStorage.getItem('customTheme') || '{}');
+    currentTheme[variable] = value;
+    saveTheme(currentTheme);
+}
+
+// 重置主題
+function resetTheme() {
+    Object.entries(defaultTheme).forEach(([variable, value]) => {
+        document.documentElement.style.setProperty(variable, value);
+        const input = document.querySelector(`input[data-var="${variable}"]`);
+        if (input) input.value = value;
+    });
+    localStorage.removeItem('customTheme');
+}
+
+// 事件監聽器
+themeSettingsToggle.addEventListener('click', () => {
+    themeSettingsPanel.classList.toggle('active');
+});
+
+document.addEventListener('click', (e) => {
+    if (!themeSettingsPanel.contains(e.target) && !themeSettingsToggle.contains(e.target)) {
+        themeSettingsPanel.classList.remove('active');
+    }
+});
+
+colorInputs.forEach(input => {
+    input.addEventListener('change', (e) => {
+        updateThemeColor(e.target.dataset.var, e.target.value);
+    });
+});
+
+resetThemeButton.addEventListener('click', resetTheme);
+
+// 載入保存的主題
+document.addEventListener('DOMContentLoaded', () => {
+    loadCustomTheme();
+});
