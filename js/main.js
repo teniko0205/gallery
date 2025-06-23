@@ -319,11 +319,28 @@ document.addEventListener('DOMContentLoaded', () => {
 // 語言切換功能
 const langButtons = document.querySelectorAll('.lang-btn');
 const currentLang = localStorage.getItem('language') || 'zh-tw';
-let translations = currentLang === 'zh-tw' ? zhTW : enUS;
+let translations;
+
+// 根據語言代碼取得對應的翻譯
+function getTranslations(lang) {
+    switch(lang) {
+        case 'zh-tw':
+            return zhTW;
+        case 'en-us':
+            return enUS;
+        case 'ja-jp':
+            return jaJP;
+        case 'ko-kr':
+            return koKR;
+        default:
+            return zhTW;
+    }
+}
 
 // 初始化語言
 function initLanguage() {
     document.documentElement.lang = currentLang;
+    translations = getTranslations(currentLang);
     updateLanguageButtons();
     updateContent();
 }
@@ -370,8 +387,8 @@ langButtons.forEach(btn => {
         const newLang = btn.dataset.lang;
         if (newLang !== currentLang) {
             localStorage.setItem('language', newLang);
-            translations = newLang === 'zh-tw' ? zhTW : enUS;
             document.documentElement.lang = newLang;
+            translations = getTranslations(newLang);
             updateLanguageButtons();
             updateContent();
         }
