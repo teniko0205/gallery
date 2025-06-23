@@ -247,73 +247,144 @@ const themeSettingsToggle = document.querySelector('.theme-settings-toggle');
 const themeSettingsPanel = document.querySelector('.theme-settings-panel');
 const colorInputs = document.querySelectorAll('.color-picker input[type="color"]');
 const resetThemeButton = document.querySelector('.reset-theme');
+const saveThemeButton = document.querySelector('.save-theme');
+const presetThemeButtons = document.querySelectorAll('.preset-theme-btn');
 
-// 預設主題顏色
-const defaultTheme = {
-    '--primary-color': '#282c34',
-    '--secondary-color': '#61afef',
-    '--text-color': '#abb2bf',
-    '--accent-color': '#98c379'
+// 預設主題
+const defaultThemes = {
+    'one-dark': {
+        '--primary-color': '#282c34',
+        '--secondary-color': '#61afef',
+        '--text-color': '#abb2bf',
+        '--light-color': '#21252b',
+        '--accent-color': '#98c379',
+        '--border-color': '#3e4451',
+        '--hover-color': '#3e4451'
+    },
+    'github-dark': {
+        '--primary-color': '#0d1117',
+        '--secondary-color': '#58a6ff',
+        '--text-color': '#c9d1d9',
+        '--light-color': '#161b22',
+        '--accent-color': '#238636',
+        '--border-color': '#30363d',
+        '--hover-color': '#21262d'
+    },
+    'monokai': {
+        '--primary-color': '#272822',
+        '--secondary-color': '#66d9ef',
+        '--text-color': '#f8f8f2',
+        '--light-color': '#1e1f1c',
+        '--accent-color': '#a6e22e',
+        '--border-color': '#49483e',
+        '--hover-color': '#3e3d32'
+    }
 };
 
-// 從 localStorage 讀取保存的主題
+// 取得目前的主題顏色
+function getCurrentThemeColors() {
+    const styles = getComputedStyle(document.documentElement);
+    return {
+        '--primary-color': styles.getPropertyValue('--primary-color').trim(),
+        '--secondary-color': styles.getPropertyValue('--secondary-color').trim(),
+        '--text-color': styles.getPropertyValue('--text-color').trim(),
+        '--light-color': styles.getPropertyValue('--light-color').trim(),
+        '--accent-color': styles.getPropertyValue('--accent-color').trim(),
+        '--border-color': styles.getPropertyValue('--border-color').trim(),
+        '--hover-color': styles.getPropertyValue('--hover-color').trim()
+    };
+}
+
+// 套用主題
+function applyTheme(colors) {
+    Object.entries(colors).forEach(([property, value]) => {
+        document.documentElement.style.setProperty(property, value);
+    });
+}
+
+// 儲存主題到 localStorage
+function saveCustomTheme(colors) {
+    localStorage.setItem('customTheme', JSON.stringify(colors));
+}
+
+// 載入自訂主題
 function loadCustomTheme() {
     const savedTheme = localStorage.getItem('customTheme');
     if (savedTheme) {
-        const theme = JSON.parse(savedTheme);
-        Object.entries(theme).forEach(([variable, value]) => {
-            document.documentElement.style.setProperty(variable, value);
-            const input = document.querySelector(`input[data-var="${variable}"]`);
-            if (input) input.value = value;
-        });
+        applyTheme(JSON.parse(savedTheme));
+        updateColorInputs();
     }
 }
 
-// 保存主題到 localStorage
-function saveTheme(theme) {
-    localStorage.setItem('customTheme', JSON.stringify(theme));
-}
-
-// 更新主題顏色
-function updateThemeColor(variable, value) {
-    document.documentElement.style.setProperty(variable, value);
-    const currentTheme = JSON.parse(localStorage.getItem('customTheme') || '{}');
-    currentTheme[variable] = value;
-    saveTheme(currentTheme);
-}
-
-// 重置主題
-function resetTheme() {
-    Object.entries(defaultTheme).forEach(([variable, value]) => {
-        document.documentElement.style.setProperty(variable, value);
-        const input = document.querySelector(`input[data-var="${variable}"]`);
-        if (input) input.value = value;
+// 更新顏色選擇器的值
+function updateColorInputs() {
+    const currentColors = getCurrentThemeColors();
+    document.querySelectorAll('.color-picker input[type="color"]').forEach(input => {
+        const cssVar = input.dataset.var;
+        input.value = currentColors[cssVar].trim();
     });
-    localStorage.removeItem('customTheme');
 }
 
-// 事件監聽器
-themeSettingsToggle.addEventListener('click', () => {
-    themeSettingsPanel.classList.toggle('active');
+// 初始化主題設定面板
+presetThemeButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const themeName = button.dataset.theme;
+        if (defaultThemes[themeName]) {
+            applyTheme(defaultThemes[themeName]);
+            updateColorInputs();
+            
+            // 更新按鈕狀態
+            presetThemeButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+        }
+    });
 });
 
-document.addEventListener('click', (e) => {
-    if (!themeSettingsPanel.contains(e.target) && !themeSettingsToggle.contains(e.target)) {
-        themeSettingsPanel.classList.remove('active');
-    }
-});
-
+// 監聽顏色選擇器
 colorInputs.forEach(input => {
     input.addEventListener('change', (e) => {
-        updateThemeColor(e.target.dataset.var, e.target.value);
+        const cssVar = e.target.dataset.var;
+        const color = e.target.value;
+        document.documentElement.style.setProperty(cssVar, color);
+        
+        // 移除預設主題的選中狀態
+        presetThemeButtons.forEach(btn => btn.classList.remove('active'));
     });
 });
 
-resetThemeButton.addEventListener('click', resetTheme);
+// 重置主題按鈕
+resetThemeButton.addEventListener('click', () => {
+    applyTheme(defaultThemes['one-dark']);
+    updateColorInputs();
+    localStorage.removeItem('customTheme');
+    
+    // 更新按鈕狀態
+    presetThemeButtons.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.theme === 'one-dark');
+    });
+});
 
-// 載入保存的主題
+// 儲存主題按鈕
+saveThemeButton.addEventListener('click', () => {
+    const currentColors = getCurrentThemeColors();
+    saveCustomTheme(currentColors);
+    alert('主題已儲存！');
+});
+
+// 載入儲存的主題
 document.addEventListener('DOMContentLoaded', () => {
     loadCustomTheme();
+    
+    // 檢查是否使用預設主題
+    const currentColors = getCurrentThemeColors();
+    presetThemeButtons.forEach(button => {
+        const themeName = button.dataset.theme;
+        const themeColors = defaultThemes[themeName];
+        const isCurrentTheme = Object.entries(themeColors).every(
+            ([key, value]) => currentColors[key] === value
+        );
+        button.classList.toggle('active', isCurrentTheme);
+    });
 });
 
 // 語言切換功能

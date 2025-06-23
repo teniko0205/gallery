@@ -44,21 +44,35 @@
             </button>
             <div class="theme-settings-panel">
                 <h3>主題設定</h3>
+                <div class="preset-themes">
+                    <h4>預設主題</h4>
+                    <button class="preset-theme-btn" data-theme="one-dark">One Dark Pro</button>
+                    <button class="preset-theme-btn" data-theme="github-dark">GitHub Dark</button>
+                    <button class="preset-theme-btn" data-theme="monokai">Monokai</button>
+                </div>
                 <div class="color-picker">
-                    <label>主要顏色
+                    <h4>自訂顏色</h4>
+                    <label>主要背景色
                         <input type="color" id="primaryColor" data-var="--primary-color">
                     </label>
-                    <label>次要顏色
+                    <label>強調色
                         <input type="color" id="secondaryColor" data-var="--secondary-color">
                     </label>
                     <label>文字顏色
                         <input type="color" id="textColor" data-var="--text-color">
                     </label>
-                    <label>強調顏色
+                    <label>次要背景色
+                        <input type="color" id="lightColor" data-var="--light-color">
+                    </label>
+                    <label>輔助強調色
                         <input type="color" id="accentColor" data-var="--accent-color">
+                    </label>
+                    <label>邊框顏色
+                        <input type="color" id="borderColor" data-var="--border-color">
                     </label>
                 </div>
                 <button class="reset-theme">重置主題</button>
+                <button class="save-theme">儲存目前主題</button>
             </div>
         </div>
         <div class="hamburger">
