@@ -551,31 +551,88 @@ body {
     opacity: 0.9;
 }
 
-/* 語言切換按鈕樣式 */
-.lang-toggle {
-    display: flex;
-    gap: 0.5rem;
-    margin-left: 1rem;
+/* 預設主題定義 */
+.preset-themes {
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1rem;
 }
 
-.lang-btn {
-    background: var(--light-color);
+.preset-themes h4,
+.color-picker h4 {
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
     color: var(--text-color);
-    border: 1px solid var(--border-color);
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.3s ease;
 }
 
-.lang-btn:hover {
+.preset-theme-btn {
+    display: block;
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--card-bg);
+    color: var(--text-color);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.preset-theme-btn:hover {
     background: var(--hover-color);
 }
 
-.lang-btn.active {
+.preset-theme-btn.active {
     background: var(--secondary-color);
     color: var(--primary-color);
     border-color: var(--secondary-color);
+}
+
+.save-theme {
+    margin-top: 0.5rem;
+    width: 100%;
+    padding: 0.5rem;
+    background: var(--accent-color);
+    color: var(--primary-color);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.save-theme:hover {
+    opacity: 0.9;
+}
+
+/* 主題預設值 */
+[data-theme="one-dark"] {
+    --primary-color: #282c34;
+    --secondary-color: #61afef;
+    --text-color: #abb2bf;
+    --light-color: #21252b;
+    --accent-color: #98c379;
+    --border-color: #3e4451;
+    --hover-color: #3e4451;
+}
+
+[data-theme="github-dark"] {
+    --primary-color: #0d1117;
+    --secondary-color: #58a6ff;
+    --text-color: #c9d1d9;
+    --light-color: #161b22;
+    --accent-color: #238636;
+    --border-color: #30363d;
+    --hover-color: #21262d;
+}
+
+[data-theme="monokai"] {
+    --primary-color: #272822;
+    --secondary-color: #66d9ef;
+    --text-color: #f8f8f2;
+    --light-color: #1e1f1c;
+    --accent-color: #a6e22e;
+    --border-color: #49483e;
+    --hover-color: #3e3d32;
 }
 
 /* 響應式設計 */
